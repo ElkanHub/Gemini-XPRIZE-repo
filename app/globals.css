@@ -1,0 +1,380 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0e0e0e;
+  --foreground: #f4f1ea;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+html {
+  background: var(--background);
+  scroll-behavior: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: #ffc857;
+  color: #0e0e0e;
+}
+
+.display-title {
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-size: 2.35rem;
+  font-weight: 850;
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+
+.row-title {
+  font-size: 2.5rem;
+  font-weight: 850;
+  line-height: 0.98;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.footer-cta {
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 0.94;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.marquee-text {
+  font-size: 4rem;
+}
+
+.hero-text {
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.72);
+}
+
+.revenue-panel {
+  align-self: stretch;
+  background: rgba(14, 14, 14, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  display: flex;
+  flex-direction: column;
+  min-height: 31rem;
+  padding: 1.25rem;
+}
+
+.revenue-tube {
+  --revenue-progress: 0%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 999px;
+  flex: 1;
+  margin: 1.5rem auto 0;
+  min-height: 21rem;
+  overflow: visible;
+  position: relative;
+  width: 4.25rem;
+}
+
+.revenue-fill {
+  background: linear-gradient(180deg, #5dd39e 0%, #ffc857 52%, #ff6f59 100%);
+  border-radius: 999px;
+  bottom: 0.28rem;
+  box-shadow: 0 0 24px rgba(255, 200, 87, 0.4);
+  height: calc(var(--revenue-progress) - 0.56rem);
+  left: 0.28rem;
+  min-height: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0.28rem;
+  transition: height 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.revenue-fill::before {
+  animation: liquid-surface 2.8s ease-in-out infinite;
+  background: #fffaf0;
+  border-radius: 44% 56% 48% 52%;
+  content: "";
+  height: 1rem;
+  left: -18%;
+  opacity: 0.78;
+  position: absolute;
+  right: -18%;
+  top: -0.48rem;
+}
+
+.revenue-shine {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.26),
+    rgba(255, 255, 255, 0)
+  );
+  border-radius: 999px;
+  bottom: 0.55rem;
+  left: 0.85rem;
+  pointer-events: none;
+  position: absolute;
+  top: 0.55rem;
+  width: 0.72rem;
+}
+
+.revenue-milestone {
+  align-items: center;
+  display: flex;
+  gap: 0.7rem;
+  left: calc(100% + 0.8rem);
+  position: absolute;
+  transform: translateY(50%);
+  width: min(13rem, 44vw);
+}
+
+.revenue-milestone::before {
+  background: rgba(255, 255, 255, 0.42);
+  content: "";
+  height: 1px;
+  left: -1.7rem;
+  position: absolute;
+  width: 1.55rem;
+}
+
+.revenue-milestone span {
+  background: #0e0e0e;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  flex: 0 0 auto;
+  height: 0.65rem;
+  width: 0.65rem;
+}
+
+.revenue-milestone span.is-reached {
+  background: #5dd39e;
+  border-color: #5dd39e;
+  box-shadow: 0 0 14px rgba(93, 211, 158, 0.7);
+}
+
+.revenue-milestone p {
+  color: #f4eadc;
+  font-size: 0.68rem;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.revenue-milestone strong {
+  color: #ffc857;
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  margin-top: 0.15rem;
+}
+
+@keyframes liquid-surface {
+  0%,
+  100% {
+    transform: translateX(-3%) scaleX(1.08);
+  }
+
+  50% {
+    transform: translateX(3%) scaleX(0.94);
+  }
+}
+
+.nav-link {
+  position: relative;
+  line-height: 1;
+}
+
+@media (min-width: 640px) {
+  .display-title {
+    font-size: 5.8rem;
+  }
+
+  .section-title {
+    font-size: 4.15rem;
+  }
+
+  .row-title {
+    font-size: 4rem;
+  }
+
+  .footer-cta {
+    font-size: 6.2rem;
+  }
+
+  .marquee-text {
+    font-size: 7rem;
+  }
+
+  .revenue-panel {
+    min-height: 34rem;
+    padding: 1.5rem;
+  }
+
+  .revenue-tube {
+    min-height: 24rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .display-title {
+    font-size: 8.4rem;
+    line-height: 0.88;
+  }
+
+  .section-title {
+    font-size: 6.1rem;
+    line-height: 0.98;
+  }
+
+  .row-title {
+    font-size: 5.7rem;
+    line-height: 0.94;
+  }
+
+  .footer-cta {
+    font-size: 10rem;
+    line-height: 0.9;
+  }
+
+  .marquee-text {
+    font-size: 11rem;
+  }
+
+  .revenue-panel {
+    min-height: 40rem;
+  }
+
+  .revenue-tube {
+    min-height: 28rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .display-title {
+    font-size: 10.4rem;
+  }
+
+  .section-title {
+    font-size: 7.1rem;
+  }
+
+  .row-title {
+    font-size: 6.4rem;
+  }
+
+  .footer-cta {
+    font-size: 13rem;
+  }
+
+  .marquee-text {
+    font-size: 14rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .revenue-panel {
+    min-height: 29rem;
+    overflow: hidden;
+  }
+
+  .revenue-tube {
+    margin-left: 1.25rem;
+    margin-right: auto;
+    min-height: 18rem;
+    width: 3.35rem;
+  }
+
+  .revenue-milestone {
+    gap: 0.5rem;
+    left: calc(100% + 0.6rem);
+    width: calc(100vw - 9.5rem);
+  }
+
+  .revenue-milestone p,
+  .revenue-milestone strong {
+    font-size: 0.62rem;
+  }
+}
+
+.nav-link::after {
+  background: currentColor;
+  bottom: -0.35rem;
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+  width: 100%;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.custom-cursor,
+.custom-cursor-dot {
+  display: none;
+}
+
+@media (pointer: fine) {
+  html,
+  a,
+  button {
+    cursor: none;
+  }
+
+  .custom-cursor,
+  .custom-cursor-dot {
+    border-radius: 999px;
+    display: block;
+    left: 0;
+    mix-blend-mode: difference;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+  }
+
+  .custom-cursor {
+    border: 1px solid #ffffff;
+    height: 42px;
+    width: 42px;
+  }
+
+  .custom-cursor-dot {
+    background: #ffffff;
+    height: 7px;
+    width: 7px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
