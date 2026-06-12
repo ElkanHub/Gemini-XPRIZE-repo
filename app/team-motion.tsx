@@ -41,15 +41,19 @@ export function MotionLayer() {
         });
       });
 
-      gsap.to("[data-hero-image]", {
-        yPercent: 12,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#top",
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
+      const media = gsap.matchMedia();
+
+      media.add("(min-width: 768px)", () => {
+        gsap.to("[data-hero-image]", {
+          yPercent: 12,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#top",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
       });
 
       gsap.to("[data-marquee]", {

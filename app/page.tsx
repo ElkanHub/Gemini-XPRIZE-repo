@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
+import { revenueConfig } from "./revenue-config";
 import { MotionLayer } from "./team-motion";
 
 type RevenueMilestone = {
@@ -45,36 +46,6 @@ const team = [
   ["Analyst", "Impact evidence", "Research synthesis, metrics, and validation"],
 ];
 
-function parseNumber(value: string | undefined, fallback: number) {
-  const parsed = Number(value);
-
-  return Number.isFinite(parsed) ? parsed : fallback;
-}
-
-function parseMilestones(value: string | undefined): RevenueMilestone[] {
-  if (!value) {
-    return [];
-  }
-
-  try {
-    const parsed = JSON.parse(value) as RevenueMilestone[];
-
-    if (!Array.isArray(parsed)) {
-      return [];
-    }
-
-    return parsed
-      .map((milestone) => ({
-        label: String(milestone.label ?? ""),
-        amount: Number(milestone.amount),
-      }))
-      .filter((milestone) => milestone.label && Number.isFinite(milestone.amount))
-      .sort((a, b) => a.amount - b.amount);
-  } catch {
-    return [];
-  }
-}
-
 function formatMoney(amount: number, currency: string) {
   return `${amount.toLocaleString("en-US", {
     maximumFractionDigits: amount % 1 === 0 ? 0 : 2,
@@ -82,13 +53,12 @@ function formatMoney(amount: number, currency: string) {
 }
 
 function RevenueTube() {
-  const currentRevenue = parseNumber(process.env.REVENUE_CURRENT_AMOUNT, 0);
-  const targetRevenue = Math.max(
-    parseNumber(process.env.REVENUE_TARGET_AMOUNT, 100000),
-    1,
-  );
-  const currency = process.env.REVENUE_CURRENCY ?? "GHC";
-  const milestones = parseMilestones(process.env.REVENUE_MILESTONES);
+  const currentRevenue = revenueConfig.currentAmount;
+  const targetRevenue = Math.max(revenueConfig.targetAmount, 1);
+  const currency = revenueConfig.currency;
+  const milestones = [...revenueConfig.milestones].sort(
+    (a, b) => a.amount - b.amount,
+  ) satisfies RevenueMilestone[];
   const progress = Math.min(Math.max((currentRevenue / targetRevenue) * 100, 0), 100);
 
   return (
@@ -190,7 +160,7 @@ export default function Home() {
 
       <section
         id="top"
-        className="relative flex min-h-[100svh] flex-col justify-between gap-14 px-5 pb-8 pt-28 md:px-10 md:pb-10"
+        className="relative flex min-h-[100svh] flex-col justify-between gap-14 px-5 pb-8 pt-[clamp(18rem,42svh,23rem)] md:px-10 md:pb-10 md:pt-28"
       >
         <div className="absolute inset-0 overflow-hidden">
           <Image
@@ -200,15 +170,15 @@ export default function Home() {
             fill
             preload
             sizes="100vw"
-            className="object-cover opacity-55"
+            className="hero-bg-image"
           />
           <div className="absolute inset-0 bg-[#0e0e0e]/56" />
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0e0e0e]/95 to-transparent" />
         </div>
 
-        <div className="relative z-10 grid gap-10 lg:grid-cols-[1fr_0.42fr_0.34fr] lg:items-start">
+        <div className="relative z-10 grid gap-8 md:gap-10 lg:grid-cols-[1fr_0.42fr_0.34fr] lg:items-start">
           <div className="hero-cursor-reveal overflow-hidden">
-            <p data-reveal className="mb-6 max-w-sm text-sm uppercase leading-6 text-[#efe6d7]">
+            <p data-reveal className="mb-4 max-w-sm text-xs uppercase leading-5 text-[#efe6d7] md:mb-6 md:text-sm md:leading-6">
               Hackathon team / Gemini-powered impact systems
             </p>
             <h1 className="display-title hero-text max-w-[10ch]">
@@ -244,8 +214,8 @@ export default function Home() {
           <p data-reveal>
             Current revenue tracked:{" "}
             {formatMoney(
-              parseNumber(process.env.REVENUE_CURRENT_AMOUNT, 0),
-              process.env.REVENUE_CURRENCY ?? "GHC",
+              revenueConfig.currentAmount,
+              revenueConfig.currency,
             )}
           </p>
           <p data-reveal className="md:text-right">
