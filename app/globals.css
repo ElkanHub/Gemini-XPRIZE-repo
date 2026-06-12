@@ -23,6 +23,12 @@ html {
   scroll-behavior: auto;
 }
 
+.hero-cursor-reveal {
+  --hero-cursor-x: 50%;
+  --hero-cursor-y: 50%;
+  --hero-reveal-strength: 0;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -71,6 +77,23 @@ html {
   text-shadow: 0 2px 28px rgba(0, 0, 0, 0.72);
 }
 
+.hero-cursor-reveal {
+  --hero-inner-opacity: calc(1 - var(--hero-reveal-strength));
+  -webkit-mask-image: radial-gradient(
+    circle 20rem at var(--hero-cursor-x) var(--hero-cursor-y),
+    rgba(0, 0, 0, var(--hero-inner-opacity)) 0,
+    rgba(0, 0, 0, calc(0.42 + (0.58 * var(--hero-reveal-strength)))) 58%,
+    #000 100%
+  );
+  mask-image: radial-gradient(
+    circle 20rem at var(--hero-cursor-x) var(--hero-cursor-y),
+    rgba(0, 0, 0, var(--hero-inner-opacity)) 0,
+    rgba(0, 0, 0, calc(0.42 + (0.58 * var(--hero-reveal-strength)))) 58%,
+    #000 100%
+  );
+  transition: opacity 220ms ease;
+}
+
 .revenue-panel {
   align-self: stretch;
   background: rgba(14, 14, 14, 0.34);
@@ -79,6 +102,72 @@ html {
   flex-direction: column;
   min-height: 31rem;
   padding: 1.25rem;
+}
+
+.xprize-banner {
+  background: #000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  color: #fff;
+  min-height: 9.4rem;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.xprize-streaks {
+  background:
+    linear-gradient(36deg, transparent 0 36%, rgba(0, 194, 255, 0.95) 37% 38%, transparent 39% 100%),
+    linear-gradient(36deg, transparent 0 42%, rgba(41, 244, 153, 0.75) 43% 44%, transparent 45% 100%),
+    linear-gradient(36deg, transparent 0 51%, rgba(39, 80, 255, 0.8) 52% 53%, transparent 54% 100%);
+  height: 100%;
+  left: -2rem;
+  opacity: 0.7;
+  position: absolute;
+  top: 0;
+  width: 12rem;
+}
+
+.xprize-banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-height: 9.4rem;
+  padding: 1.5rem 5vw 1.35rem 10vw;
+  position: relative;
+  z-index: 1;
+}
+
+.xprize-lockup {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.xprize-lockup strong {
+  font-weight: 900;
+}
+
+.xprize-google {
+  font-size: 0.88em;
+  font-weight: 750;
+  text-transform: none;
+}
+
+.xprize-banner p {
+  color: #fff;
+  font-size: clamp(1.45rem, 2.45vw, 2rem);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.xprize-banner p strong {
+  color: #22d3ee;
 }
 
 .revenue-tube {
@@ -95,7 +184,7 @@ html {
 }
 
 .revenue-fill {
-  background: linear-gradient(180deg, #5dd39e 0%, #ffc857 52%, #ff6f59 100%);
+  background: linear-gradient(180deg, #29f499 0%, #ffc857 52%, #7e2316 100%);
   border-radius: 999px;
   bottom: 0.28rem;
   box-shadow: 0 0 24px rgba(255, 200, 87, 0.4);
@@ -289,6 +378,25 @@ html {
 }
 
 @media (max-width: 520px) {
+  .xprize-banner {
+    min-height: 11rem;
+  }
+
+  .xprize-banner-content {
+    min-height: 11rem;
+    padding: 1.4rem 1.25rem 1.25rem 5.6rem;
+  }
+
+  .xprize-lockup {
+    gap: 0.45rem;
+    font-size: 2rem;
+  }
+
+  .xprize-banner p {
+    font-size: 1.35rem;
+    line-height: 1.12;
+  }
+
   .revenue-panel {
     min-height: 29rem;
     overflow: hidden;

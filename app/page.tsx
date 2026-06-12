@@ -146,6 +146,26 @@ function RevenueTube() {
   );
 }
 
+function XprizeBanner() {
+  return (
+    <section aria-label="Gemini XPRIZE challenge banner" className="xprize-banner">
+      <div className="xprize-streaks" aria-hidden="true" />
+      <div className="xprize-banner-content">
+        <div className="xprize-lockup">
+          <span>Build with Gemini</span>
+          <span aria-hidden="true">|</span>
+          <strong>XPRIZE</strong>
+          <span aria-hidden="true">|</span>
+          <span className="xprize-google">Google</span>
+        </div>
+        <p>
+          <strong>90 days.</strong> Build a real business with AI.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#0e0e0e] text-[#f4f1ea]">
@@ -153,7 +173,7 @@ export default function Home() {
 
       <nav className="fixed left-0 right-0 top-0 z-40 flex items-center justify-between border-b border-white/10 bg-[#0e0e0e]/82 px-5 py-5 text-xs uppercase text-[#f4f1ea] backdrop-blur-md md:px-10">
         <a href="#top" className="nav-link">
-          Gemini XPRIZE
+          Gemini XPRIZE Hackathon
         </a>
         <div className="flex items-center gap-5 md:gap-8">
           <a href="#team" className="nav-link">
@@ -187,7 +207,7 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 grid gap-10 lg:grid-cols-[1fr_0.42fr_0.34fr] lg:items-start">
-          <div className="overflow-hidden">
+          <div className="hero-cursor-reveal overflow-hidden">
             <p data-reveal className="mb-6 max-w-sm text-sm uppercase leading-6 text-[#efe6d7]">
               Hackathon team / Gemini-powered impact systems
             </p>
@@ -209,17 +229,17 @@ export default function Home() {
 
           <div
             data-reveal
-            className="hero-text max-w-md self-end border-l border-[#ffc857]/70 pl-5 text-lg leading-8 text-[#f4eadc] lg:pt-28"
+            className="hero-cursor-reveal hero-text max-w-md self-end border-l border-[#ffc857]/70 pl-5 text-lg leading-8 text-[#f4eadc] lg:pt-28"
           >
             We are assembling a focused team to turn Gemini into a practical,
-            testable XPRIZE submission: research-backed, beautifully presented,
+            valid XPRIZE submission: research-backed, beautifully presented,
             and strong enough to survive judging.
           </div>
 
           <RevenueTube />
         </div>
 
-        <div className="relative z-10 grid gap-6 border-t border-white/20 pt-5 text-sm uppercase leading-6 text-[#efe6d7] md:grid-cols-3">
+        <div className="hero-cursor-reveal relative z-10 grid gap-6 border-t border-white/20 pt-5 text-sm uppercase leading-6 text-[#efe6d7] md:grid-cols-3">
           <p data-reveal>Remote-first / Ghana and global contributors</p>
           <p data-reveal>
             Current revenue tracked:{" "}
@@ -233,6 +253,8 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      <XprizeBanner />
 
       <section id="work" className="px-5 py-24 md:px-10 md:py-32">
         <div className="mb-16 flex flex-col gap-6 md:grid md:grid-cols-[0.28fr_1fr]">
@@ -333,7 +355,7 @@ export default function Home() {
           href="mailto:team@gemini-xprize.local"
           className="footer-cta block break-words transition duration-500 hover:text-[#5dd39e]"
         >
-          Join the team
+          View our project
         </a>
         <div className="mt-14 flex flex-col gap-3 border-t border-white/15 pt-5 text-sm uppercase text-[#a8a092] md:flex-row md:items-center md:justify-between">
           <p>Gemini XPRIZE Hackathon</p>

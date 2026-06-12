@@ -84,8 +84,40 @@ export function MotionLayer() {
     const interactive = document.querySelectorAll("a, button, [data-hover]");
     const grow = () => cursor && gsap.to(cursor, { scale: 1.8, duration: 0.25 });
     const shrink = () => cursor && gsap.to(cursor, { scale: 1, duration: 0.25 });
+    const hero = document.querySelector<HTMLElement>("#top");
+    const heroRevealTargets = gsap.utils.toArray<HTMLElement>(".hero-cursor-reveal");
+
+    const handleHeroMove = (event: MouseEvent) => {
+      if (!hero) return;
+
+      heroRevealTargets.forEach((target) => {
+        const bounds = target.getBoundingClientRect();
+        const x = event.clientX - bounds.left;
+        const y = event.clientY - bounds.top;
+
+        gsap.to(target, {
+          "--hero-cursor-x": `${x}px`,
+          "--hero-cursor-y": `${y}px`,
+          "--hero-reveal-strength": 1,
+          duration: 0.45,
+          ease: "power3.out",
+        });
+      });
+    };
+
+    const handleHeroLeave = () => {
+      if (!hero) return;
+
+      gsap.to(heroRevealTargets, {
+        "--hero-reveal-strength": 0,
+        duration: 0.55,
+        ease: "power3.out",
+      });
+    };
 
     window.addEventListener("mousemove", handleMove);
+    hero?.addEventListener("mousemove", handleHeroMove);
+    hero?.addEventListener("mouseleave", handleHeroLeave);
     interactive.forEach((element) => {
       element.addEventListener("mouseenter", grow);
       element.addEventListener("mouseleave", shrink);
@@ -93,6 +125,8 @@ export function MotionLayer() {
 
     return () => {
       window.removeEventListener("mousemove", handleMove);
+      hero?.removeEventListener("mousemove", handleHeroMove);
+      hero?.removeEventListener("mouseleave", handleHeroLeave);
       interactive.forEach((element) => {
         element.removeEventListener("mouseenter", grow);
         element.removeEventListener("mouseleave", shrink);
